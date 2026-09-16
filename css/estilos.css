@@ -1,0 +1,747 @@
+/* =========================================================
+   LA VIÑETECA — Estilo CÓMIC / MANGA
+   Sin Flexbox · Sin Grid · Sin @media · Sin JavaScript
+   ========================================================= */
+
+/* ---------- 1. Reset & tokens ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paleta del logo */
+  --naranja:        #E87722;
+  --naranja-oscuro: #B8560F;
+  --naranja-claro:  #FFD9A8;
+  --crema:          #FFF3E2;
+  --amarillo:       #FFC72C;
+  --tinta:          #101010;
+  --tinta-suave:    #333333;
+  --blanco:         #FFFFFF;
+  --rojo:           #E63946;
+
+  /* Escala tipográfica fluida */
+  --fs-xs:  clamp(0.78rem, 0.72rem + 0.3vw, 0.9rem);
+  --fs-sm:  clamp(0.9rem,  0.85rem + 0.35vw, 1rem);
+  --fs-md:  clamp(1rem,    0.95rem + 0.5vw,  1.15rem);
+  --fs-lg:  clamp(1.3rem,  1rem + 1.4vw,     1.9rem);
+  --fs-xl:  clamp(1.9rem,  1.2rem + 2.6vw,   3rem);
+  --fs-xxl: clamp(2.6rem,  1.4rem + 5vw,     5rem);
+
+  /* Espaciados fluidos */
+  --sp-xs: clamp(0.35rem, 0.3rem + 0.3vw, 0.5rem);
+  --sp-sm: clamp(0.6rem,  0.5rem + 0.6vw, 0.9rem);
+  --sp-md: clamp(1rem,    0.8rem + 1.2vw, 1.75rem);
+  --sp-lg: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  --sp-xl: clamp(2.5rem,  1.5rem + 4vw,   5rem);
+
+  /* Radios y sombras tipo cómic */
+  --radio-sm: 0.4rem;
+  --radio-md: 0.75rem;
+  --radio-lg: 1.25rem;
+  --borde-comic: 4px solid var(--tinta);
+  --borde-comic-grueso: 6px solid var(--tinta);
+  --sombra-comic: 6px 6px 0 var(--tinta);
+  --sombra-comic-hover: 10px 10px 0 var(--tinta);
+
+  --ancho-contenido: min(76rem, 94vw);
+}
+
+/* ---------- 2. Base ---------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--crema);
+  /* Patrón halftone hecho con gradientes radiales */
+  background-image:
+    radial-gradient(circle, rgba(232, 119, 34, 0.18) 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(16, 16, 16, 0.08) 1.5px, transparent 2px);
+  background-size: 22px 22px, 22px 22px;
+  background-position: 0 0, 11px 11px;
+  color: var(--tinta);
+  font-family: "Comic Sans MS", "Chalkboard SE", "Segoe UI", system-ui, sans-serif;
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--naranja-oscuro);
+  text-decoration: underline wavy;
+  text-underline-offset: 0.2em;
+  font-weight: 700;
+}
+a:hover,
+a:focus-visible {
+  color: var(--rojo);
+  background-color: var(--amarillo);
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+  border-radius: 0.2em;
+}
+
+/* Títulos estilo cómic: contorno + sombra dura */
+h1, h2, h3 {
+  color: var(--tinta);
+  line-height: 1.05;
+  margin: 0 0 var(--sp-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 900;
+  text-shadow: 3px 3px 0 var(--amarillo);
+}
+
+h1 { font-size: var(--fs-xxl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+
+p { margin: 0 0 var(--sp-sm); }
+
+mark {
+  background-color: var(--amarillo);
+  color: var(--tinta);
+  padding: 0.05em 0.4em;
+  border: 3px solid var(--tinta);
+  border-radius: 0.3em;
+  box-shadow: 3px 3px 0 var(--tinta);
+  font-weight: 900;
+}
+
+abbr[title] {
+  text-decoration: underline dotted var(--naranja-oscuro);
+  cursor: help;
+}
+
+cite {
+  font-style: italic;
+  color: var(--tinta);
+  font-weight: 800;
+}
+
+/* ---------- 3. Cabecera tipo portada ---------- */
+.cabecera {
+  display: block;
+  position: relative;
+  background-color: var(--naranja);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.12) 0,
+      rgba(255, 255, 255, 0.12) 20px,
+      transparent 20px,
+      transparent 40px
+    );
+  color: var(--blanco);
+  padding: var(--sp-lg) var(--sp-md) var(--sp-md);
+  text-align: center;
+  border-bottom: var(--borde-comic-grueso);
+  box-shadow: 0 8px 0 var(--tinta);
+  margin-bottom: var(--sp-lg);
+}
+
+.marca {
+  display: inline-block;
+  color: var(--blanco);
+  text-decoration: none;
+  margin-bottom: var(--sp-sm);
+  padding: var(--sp-sm);
+  background-color: var(--tinta);
+  border: var(--borde-comic);
+  border-radius: 50%;
+  box-shadow: var(--sombra-comic);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.marca:hover,
+.marca:focus-visible {
+  background-color: var(--tinta);
+  color: var(--blanco);
+  outline: none;
+  transform: rotate(-4deg) scale(1.05);
+  box-shadow: var(--sombra-comic-hover);
+}
+
+.marca__logo {
+  width: clamp(100px, 16vw, 180px);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: block;
+}
+
+.marca__titulo {
+  font-size: var(--fs-xxl);
+  color: var(--blanco);
+  margin: var(--sp-sm) 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+  -webkit-text-stroke: 3px var(--tinta);
+  paint-order: stroke fill;
+  text-shadow:
+    4px 4px 0 var(--tinta),
+    8px 8px 0 var(--amarillo);
+}
+
+.marca__titulo mark {
+  background-color: transparent;
+  color: var(--amarillo);
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  -webkit-text-stroke: 3px var(--tinta);
+  paint-order: stroke fill;
+}
+
+.lema {
+  font-size: var(--fs-md);
+  margin: var(--sp-md) auto;
+  max-width: 45ch;
+  color: var(--tinta);
+  background-color: var(--blanco);
+  padding: var(--sp-sm) var(--sp-md);
+  border: var(--borde-comic);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-comic);
+  font-style: italic;
+  font-weight: 700;
+  position: relative;
+}
+/* Colita del bocadillo */
+.lema::after {
+  content: "";
+  position: absolute;
+  bottom: -22px;
+  left: 40px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 22px solid var(--tinta);
+}
+.lema::before {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 45px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 15px solid var(--blanco);
+  z-index: 1;
+}
+
+/* ---------- 4. Navegación tipo botones ---------- */
+.navegacion {
+  display: block;
+  margin: var(--sp-lg) auto 0;
+  max-width: var(--ancho-contenido);
+}
+
+.navegacion__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navegacion__lista li {
+  display: inline-block;
+  margin: 0 var(--sp-xs) var(--sp-xs);
+}
+
+.navegacion__lista a {
+  display: inline-block;
+  padding: var(--sp-xs) var(--sp-md);
+  background-color: var(--amarillo);
+  color: var(--tinta);
+  border: var(--borde-comic);
+  border-radius: var(--radio-sm);
+  font-weight: 900;
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--sombra-comic);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+.navegacion__lista a:hover,
+.navegacion__lista a:focus-visible {
+  background-color: var(--rojo);
+  color: var(--blanco);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--sombra-comic-hover);
+}
+
+/* ---------- 5. Contenedor principal ---------- */
+main {
+  display: block;
+  width: var(--ancho-contenido);
+  margin: 0 auto;
+  padding: var(--sp-lg) 0;
+}
+
+section {
+  display: block;
+  margin-bottom: var(--sp-xl);
+}
+
+/* ---------- 6. Hero tipo viñeta ---------- */
+.hero {
+  background-color: var(--blanco);
+  border: var(--borde-comic-grueso);
+  border-radius: var(--radio-md);
+  padding: var(--sp-lg) var(--sp-md);
+  box-shadow: var(--sombra-comic);
+  text-align: center;
+  position: relative;
+}
+
+.hero__titulo {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--sp-sm);
+  color: var(--naranja-oscuro);
+  text-shadow:
+    3px 3px 0 var(--amarillo),
+    5px 5px 0 var(--tinta);
+}
+
+.hero__texto {
+  font-size: var(--fs-md);
+  max-width: 60ch;
+  margin: 0 auto var(--sp-sm);
+  color: var(--tinta-suave);
+}
+
+.hero__horario {
+  display: inline-block;
+  background-color: var(--naranja);
+  color: var(--blanco);
+  padding: var(--sp-xs) var(--sp-md);
+  border: var(--borde-comic);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--sombra-comic);
+}
+
+/* =========================================================
+   SECCIÓN PREVENTAS — viñetas de cómic
+   ========================================================= */
+
+.preventas__intro {
+  color: var(--tinta-suave);
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+}
+
+.producto {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(50% - var(--sp-md) + 0.5rem);
+  min-width: min(300px, 100%);
+  margin: 0 calc(var(--sp-md) / 2) var(--sp-md);
+  background-color: var(--blanco);
+  border: var(--borde-comic-grueso);
+  border-radius: var(--radio-md);
+  padding: var(--sp-md);
+  box-shadow: var(--sombra-comic);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.producto:nth-of-type(odd)  { margin-left: 0; }
+.producto:nth-of-type(even) { margin-right: 0; }
+
+.producto:hover {
+  transform: translate(-3px, -3px) rotate(-0.5deg);
+  box-shadow: var(--sombra-comic-hover);
+}
+
+.producto__cabecera {
+  display: block;
+  margin-bottom: var(--sp-sm);
+}
+
+.producto__sello {
+  display: inline-block;
+  background-color: var(--rojo);
+  color: var(--blanco);
+  font-size: var(--fs-xs);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3em 0.9em;
+  border: 3px solid var(--tinta);
+  border-radius: 999px;
+  margin: 0 0 var(--sp-xs);
+  box-shadow: 3px 3px 0 var(--tinta);
+  transform: rotate(-2deg);
+}
+
+.producto__titulo {
+  color: var(--tinta);
+  font-size: var(--fs-lg);
+  margin: 0;
+  text-shadow: 2px 2px 0 var(--amarillo);
+}
+
+.producto__imagen {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto var(--sp-sm);
+  border: var(--borde-comic);
+  border-radius: var(--radio-sm);
+  box-shadow: var(--sombra-comic);
+  display: block;
+  background-color: var(--crema);
+}
+
+.producto__datos {
+  display: block;
+  margin: 0 0 var(--sp-sm);
+  padding: 0;
+}
+
+.producto__datos dt {
+  display: block;
+  font-weight: 900;
+  color: var(--naranja-oscuro);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: var(--sp-xs);
+}
+
+.producto__datos dd {
+  display: block;
+  margin: 0.15em 0 0;
+  color: var(--tinta-suave);
+  font-size: var(--fs-sm);
+}
+
+/* Precio tipo etiqueta */
+.producto__precio {
+  background-color: var(--amarillo);
+  color: var(--tinta);
+  border: var(--borde-comic);
+  padding: var(--sp-xs) var(--sp-sm);
+  border-radius: var(--radio-sm);
+  font-size: var(--fs-md);
+  margin: 0 0 var(--sp-xs);
+  box-shadow: var(--sombra-comic);
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+}
+
+.producto__precio strong {
+  color: var(--rojo);
+  font-size: var(--fs-lg);
+  text-shadow: 1px 1px 0 var(--tinta);
+}
+
+.producto__fecha {
+  font-size: var(--fs-sm);
+  color: var(--tinta-suave);
+  margin: 0 0 var(--sp-xs);
+  font-weight: 700;
+}
+
+.producto__fecha time {
+  font-weight: 900;
+  color: var(--naranja-oscuro);
+}
+
+.producto details {
+  margin-top: var(--sp-sm);
+}
+
+/* ---------- 7. Catálogo ---------- */
+.catalogo__intro {
+  color: var(--tinta-suave);
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+}
+
+.ficha {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(33.333% - var(--sp-md) + 0.5rem);
+  min-width: min(260px, 100%);
+  margin: 0 calc(var(--sp-md) / 2) var(--sp-md);
+  background-color: var(--blanco);
+  border: var(--borde-comic-grueso);
+  border-radius: var(--radio-md);
+  padding: var(--sp-md);
+  box-shadow: var(--sombra-comic);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ficha:first-of-type { margin-left: 0; }
+.ficha:last-of-type  { margin-right: 0; }
+
+.ficha:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--sombra-comic-hover);
+}
+
+.ficha h3 {
+  color: var(--naranja-oscuro);
+  text-shadow: 2px 2px 0 var(--amarillo);
+}
+
+/* ---------- 8. Details / Summary tipo bocadillo ---------- */
+details {
+  display: block;
+  margin-top: var(--sp-sm);
+  background-color: var(--crema);
+  border: var(--borde-comic);
+  border-radius: var(--radio-sm);
+  padding: var(--sp-xs) var(--sp-sm);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 3px 3px 0 var(--tinta);
+}
+
+details[open] {
+  background-color: var(--naranja-claro);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--tinta);
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 900;
+  color: var(--tinta);
+  padding: var(--sp-xs) 0;
+  list-style: none;
+  position: relative;
+  padding-left: 1.8em;
+  font-size: var(--fs-sm);
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--naranja);
+  font-size: 1em;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+details[open] > summary::before {
+  content: "★";
+  color: var(--rojo);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+summary:hover,
+summary:focus-visible {
+  color: var(--rojo);
+  outline: 3px dashed var(--naranja);
+  outline-offset: 3px;
+  border-radius: 0.3em;
+}
+
+details ul {
+  margin: var(--sp-xs) 0 0;
+  padding-left: 1.4em;
+}
+
+details li {
+  margin-bottom: 0.4em;
+  color: var(--tinta-suave);
+  font-weight: 600;
+}
+
+details li::marker {
+  color: var(--naranja);
+  font-size: 1.2em;
+}
+
+/* ---------- 9. Nosotros / datos ---------- */
+.nosotros p {
+  max-width: 65ch;
+}
+
+.datos {
+  display: block;
+  margin: var(--sp-md) 0 0;
+  padding: var(--sp-md);
+  background-color: var(--blanco);
+  border: var(--borde-comic-grueso);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-comic);
+}
+
+.datos dt {
+  display: inline-block;
+  min-width: 12ch;
+  font-weight: 900;
+  color: var(--naranja-oscuro);
+  margin-right: var(--sp-xs);
+  text-transform: uppercase;
+  font-size: var(--fs-sm);
+}
+
+.datos dd {
+  display: inline;
+  margin: 0 0 var(--sp-xs);
+  color: var(--tinta-suave);
+  font-weight: 600;
+}
+
+.datos dd::after {
+  content: "";
+  display: block;
+  margin-bottom: var(--sp-xs);
+}
+
+/* ---------- 10. Contacto tipo viñeta final ---------- */
+.contacto {
+  background-color: var(--naranja);
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.1) 0,
+      rgba(255, 255, 255, 0.1) 16px,
+      transparent 16px,
+      transparent 32px
+    );
+  color: var(--blanco);
+  border: var(--borde-comic-grueso);
+  border-radius: var(--radio-lg);
+  padding: var(--sp-lg) var(--sp-md);
+  box-shadow: var(--sombra-comic);
+}
+
+.contacto h2 {
+  color: var(--blanco);
+  text-shadow:
+    3px 3px 0 var(--tinta),
+    6px 6px 0 var(--amarillo);
+}
+
+.direccion {
+  font-style: normal;
+}
+
+.direccion dl {
+  margin: 0;
+  background-color: var(--blanco);
+  border: var(--borde-comic);
+  border-radius: var(--radio-md);
+  padding: var(--sp-md);
+  box-shadow: var(--sombra-comic);
+}
+
+.direccion dt {
+  display: block;
+  font-weight: 900;
+  color: var(--naranja-oscuro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--fs-xs);
+  margin-top: var(--sp-sm);
+}
+
+.direccion dt:first-child {
+  margin-top: 0;
+}
+
+.direccion dd {
+  display: block;
+  margin: 0.2em 0 0;
+  color: var(--tinta);
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+
+.direccion a {
+  color: var(--rojo);
+  font-weight: 900;
+  text-decoration: underline wavy;
+}
+.direccion a:hover,
+.direccion a:focus-visible {
+  background-color: var(--amarillo);
+  color: var(--tinta);
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+.direccion small {
+  font-size: var(--fs-xs);
+  color: var(--tinta-suave);
+  font-weight: 600;
+}
+
+/* ---------- 11. Pie tipo tira de créditos ---------- */
+.pie {
+  display: block;
+  background-color: var(--tinta);
+  color: var(--crema);
+  text-align: center;
+  padding: var(--sp-lg) var(--sp-md);
+  font-size: var(--fs-sm);
+  border-top: var(--borde-comic-grueso);
+  margin-top: var(--sp-lg);
+}
+
+.pie p {
+  margin: 0 0 var(--sp-xs);
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 700;
+}
+
+.pie mark {
+  background-color: var(--amarillo);
+  color: var(--tinta);
+  padding: 0.05em 0.4em;
+  border: 2px solid var(--tinta);
+  border-radius: 0.3em;
+  box-shadow: 2px 2px 0 var(--naranja);
+}
+
+.pie code {
+  font-family: "Consolas", "Menlo", monospace;
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 0.1em 0.4em;
+  border-radius: 0.3em;
+  font-size: 0.9em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pie small {
+  color: rgba(255, 243, 226, 0.75);
+}
+
+/* ---------- 12. Foco accesible global ---------- */
+:focus-visible {
+  outline: 3px solid var(--naranja);
+  outline-offset: 3px;
+}
